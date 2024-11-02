@@ -20,6 +20,10 @@ const UserSchema = new mongoose.Schema({
     enum: ["agent", "buyer", "admin"],
     default: "buyer",
   },
+  notificationPreference: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 const User = mongoose.model("User", UserSchema);

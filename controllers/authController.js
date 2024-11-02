@@ -58,3 +58,24 @@ exports.getUser = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+exports.updateUser = async (req, res) => {
+  const { name, email, role, notificationPreference } = req.body;
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.name = name || user.name;
+    user.email = email || user.email;
+    user.role = role || user.role;
+    user.notificationPreference =
+      notificationPreference || user.notificationPreference;
+
+    await user.save();
+    res.json({ message: "User updated successfully" });
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
+};

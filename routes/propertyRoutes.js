@@ -8,8 +8,9 @@ const {
   deleteProperty,
 } = require("../controllers/propertyController");
 const { authMiddleware } = require("../middleware/authMiddleware");
+const { upload } = require("../middleware/imageUpload");
 
-router.post("/create/property", authMiddleware, createProperty);
+router.post("/create/property/:id", upload.array("images", 5), createProperty);
 router.get("/propertyList", getProperties);
 router.get("/property/:id", getProperty);
 router.put("/update/property/:id", authMiddleware, updateProperty);
