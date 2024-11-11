@@ -303,3 +303,21 @@ exports.getPropertyTourScheduleByBuyers = async (req, res) => {
     });
   }
 };
+
+exports.deactivateProperty = async (req, res) => {
+  try {
+    const property = await Property.findByIdAndUpdate(req.params.id, {
+      isActive: false,
+    });
+
+    res.status(200).json({
+      success: true,
+      data: property,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+};

@@ -112,6 +112,10 @@ const propertySchema = new mongoose.Schema(
         ref: "ReviewRating",
       },
     ],
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
   },
 
   { timestamps: true }
