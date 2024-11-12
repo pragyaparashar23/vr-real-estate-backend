@@ -165,6 +165,35 @@ exports.createProperty = async (req, res) => {
   }
 };
 
+// update property
+
+exports.updateProperty = async (req, res) => {
+  console.log("req.body", req.body);
+  try {
+    const property = await Property.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!property) {
+      return res.status(404).json({
+        success: false,
+        error: "Property not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: property,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      error: error.message,
+    });
+  }
+};
+
 exports.getProperties = async (req, res) => {
   try {
     const properties = await Property.find({}).sort("-createdAt");
